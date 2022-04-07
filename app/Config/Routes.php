@@ -32,6 +32,13 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/fans/(:num)', 'FansController::edit/$1');
+$routes->post('/fans/(:num)', 'FansController::update/$1');
+$routes->get('/fans/new', 'FansController::add/$1');
+$routes->post('/fans/create', 'FansController::create/$1');
+$routes->get('/fans/delete/(:num)', 'FansController::delete/$1');
+$routes->get('/fans/xml', 'FansController::upload');
+$routes->post('/fans/xml', 'FansController::importXML');
 
 /*
  * --------------------------------------------------------------------
