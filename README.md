@@ -1,63 +1,76 @@
-# CodeIgniter 4 Application Starter
+# Teste All Blacks
 
-## What is CodeIgniter?
+## Requisitos
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+  ### PHP
+ - PHP 7.3 ou superior
+ - [intl](http://php.net/manual/en/intl.requirements.php)
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+ Extensões do PHP:
+- json
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
+- xml
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+### Outros softwares
+ - Composer
+ - Git
+ - MySql
+## Resumo
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
-
-## Installation & updates
-
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+Para este teste, utilizei o framework codeigniter 4. O teste consiste na criação de uma base de dados dos torcedores dos all blacks a partir de um arquivo de planilha .xlsx, possibilidade de atualizar informações dos torcedores, registrar novos torcedores, excluí-los e importar novos torcedores via arquivo XML.
 
 ## Setup
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Para rodar o projeto na sua máquina, considerando que você tenha todos os requisitos instalados, faça o seguinte:
 
-## Important Change with index.php
+### clone o repositório
+Abra um novo terminal na pasta em que você quer clonar o projeto, e então digite:
+```
+git clone https://github.com/lu1zf/p21-allblacks
+```
+Em seguida, entre na pasta clonada:
+```
+cd p21-allblacks
+```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+### instale as dependências
+Agora que você está dentro da pasta, digite o seguinte comando para instalar as dependências:
+```
+composer install
+```
+### crie seu arquivo .env
+Para que o projeto possa ser executado, você precisa criar um arquivo ```.env``` com as variáveis de ambiente da aplicação, você pode usar o arquivo ```env``` que se encontra na raiz do projeto. Caso escolha fazer isso pelo terminal, digite:
+```
+cp env .env
+```
+Dentro do arquivo .env recém criado, atualize os dados a seguir:
+```
+...
+database.default.hostname = <SEU HOSTNAME AQUI>
+database.default.database = <SUA DATABASE AQUI>
+database.default.username = <SEU USERNAME AQUI>
+database.default.password = <SEU PASSWORD AQUI>
+database.default.DBDriver = MySQLi
+...
+```
+### Migração do banco de dados
+Para que as tabelas sejam criadas no banco de dados e os torcedores sejam importados do sistema, você deve rodar o seguinte comando no terminal:
+```
+php spark migrate
+```
+Concluída a execução desse comando, os torcedores devem estar presentes no banco de dados, na tabela ```fans```.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Por fim, para rodar a aplicação, digite no console:
+```
+php spark serve
+```
+Caso ocorra tudo certo, você poderá acessar a aplicação no endereço ```http://localhost:8080/```.
 
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 7.3 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+## Status do teste
+- [x] Importação inicial de torcedores via .XLSX
+- [x] Importação de torcedores via XML
+- [x] Edição de dados de torcedor
+- [x] Criar novo torcedor
+- [x] Deletar torcedor
+- [ ] Envio de e-mails para torcedores cadastrados
